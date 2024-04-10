@@ -4,7 +4,7 @@ const searchForm = document.querySelector(".search_form")
 let search;
 let page = 1
 const moreBtn = document.querySelector(".add")
-let perPage = 100
+let perPage = 12
 let isFirst = true
 const fetchUrl = async (search, page) => {
     try {
@@ -20,7 +20,10 @@ const fetchUrl = async (search, page) => {
 async function getImages(search, page){
     const data = await fetchUrl(search, page)
     if(isFirst){
-        alert(`Ви отримали ${data.totalHits} зображень`) 
+        alert(`Ви отримали ${data.totalHits} зображень`)
+        if(data.totalHits > perPage){
+            moreBtn.classList.remove("hide") 
+        }
     }
     if(data.totalHits/perPage <= page){
         moreBtn.classList.add("hide")
