@@ -22,7 +22,6 @@ const fetchUrl = async (search, page) => {
 async function getImages(search, page){
     const data = await fetchUrl(search, page)
     if(isFirst){
-        // alert(`Ви отримали ${data.totalHits} зображень`)
         iziToast.success({
             message: `Ви отримали ${data.totalHits} зображень`,
             position: 'topRight'
@@ -33,6 +32,10 @@ async function getImages(search, page){
     }
     if(data.totalHits/perPage <= page){
         moreBtn.classList.add("hide")
+        iziToast.info({
+            message: `Ви отримали усі зображення`,
+            position: 'topRight'
+          });
     }
     MarkUp(data.hits)
 }
