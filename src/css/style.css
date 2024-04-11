@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
+    padding-top: 50px;
 }
 .search_header{
     background-color: purple;
@@ -14,11 +15,15 @@
     width: 100%;
     position: fixed;
 }
-img{
-    width: 400px;
-    height: 350px;
-
-}
+img {
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 400ms ease-out;
+  }
+  img:hover {
+  transform: scale(1.02);
+  }
 .add {
     display: block;
     margin-left: auto;
@@ -26,11 +31,11 @@ img{
     margin-top: 10px;
 }
 
-.hide{
-    display: none;
-}
-
 button {
     background-color: azure;
     border-radius: 25%;
+}
+
+.hide{
+    display: none;
 }

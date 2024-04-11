@@ -1,3 +1,5 @@
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 const wrap = document.querySelector(".wrap")
 const searchInput = document.querySelector(".search_input")
 const searchForm = document.querySelector(".search_form")
@@ -20,7 +22,11 @@ const fetchUrl = async (search, page) => {
 async function getImages(search, page){
     const data = await fetchUrl(search, page)
     if(isFirst){
-        alert(`Ви отримали ${data.totalHits} зображень`)
+        // alert(`Ви отримали ${data.totalHits} зображень`)
+        iziToast.success({
+            message: `Ви отримали ${data.totalHits} зображень`,
+            position: 'topRight'
+          });
         if(data.totalHits > perPage){
             moreBtn.classList.remove("hide") 
         }
