@@ -3,7 +3,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 const wrap = document.querySelector(".wrap")
 const searchInput = document.querySelector(".search_input")
 const searchForm = document.querySelector(".search_form")
-const backdrop = document.querySelector(".backdrop")
+const body = document.querySelector("body")
 let search;
 let page = 1
 const moreBtn = document.querySelector(".add")
@@ -55,10 +55,10 @@ async function onSearch(e){
     wrap.innerHTML = ""
     isFirst = true
     await getImages(search, 1)
+    searchForm.reset()
 }
 function MarkUp(data){
     const markUp = data.map((obj) => {
-        console.log(obj)
         return `<img alt="${obj.tags}" data-id="${obj.id}" src=${obj.webformatURL}>`
     })
     wrap.insertAdjacentHTML("beforeend", markUp.join(""))
@@ -69,16 +69,18 @@ function openModal(e){
     if(e.target.nodeName === "IMG"){
         document.querySelector("html").classList.add("no_scroll")
         const imgId = e.target.dataset.id
-        const obj = fetchImage(imgId)
-        console.log(333,obj)
-        ModalMarkUp(obj)
+        console.log(document.querySelector(".backdrop"))
+        fetchImage(imgId)
+        body.addEventListener("keydown", onEscape)
+        // console.log(document.querySelector(".backdrop"))
+        document.querySelector(".backdrop").addEventListener("click", onBackdrop)
     }
 }
     const fetchImage = async (id) => { 
         try {
         const response = await fetch(`https://pixabay.com/api?id=${id}&key=43135945-0fa309f6e906fbaa5e36dac33`);
         const images = await response.json();
-        console.log("1222",images.hits[0])
+        ModalMarkUp(images.hits[0])
         return images.hits[0]
         } catch (error) {
         console.log(error.message);
@@ -89,10 +91,27 @@ function openModal(e){
             const markUp = `
             <div class="backdrop">
         <div class="modal">
-            <img class="modal_img" src=${obj.pageURL} alt="${obj.tags}">
+            <img class="modal_img" src=${obj.webformatURL} alt="${obj.tags}">
             <p class="photo_description">${obj.tags}</p>
         </div>
     </div>
             `
-            document.querySelector("body").insertAdjacentHTML("beforeend", markUp)
+            body.insertAdjacentHTML("afterbegin", markUp)
+        }
+
+        function onEscape(e){
+            if(e.code === "Escape"){
+                // document.querySelector(".backdrop").remove()
+                body.removeEventListener("keydown", onEscape)
+                document.querySelector("html").classList.remove("no_scroll")
+            }
+        }
+
+        function onBackdrop(e){
+            console.log(11)
+            // if(e.target.nodeName === ){
+            //     document.querySelector(".backdrop").classList.add("hide")
+            //     body.removeEventListener("keydown", onEscape)
+            //     document.querySelector("html").classList.remove("no_scroll")
+            // }
         }

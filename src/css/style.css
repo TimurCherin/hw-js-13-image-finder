@@ -41,7 +41,7 @@ button {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
-    position: absolute;
+    position: fixed;
     z-index: 1;
 }
 
@@ -52,6 +52,25 @@ button {
     transform: translate(-50%, -50%);
     background-color: white;
     z-index: 2;
+    animation: show_modal 2s linear;
+}
+
+@keyframes show_modal {
+    0%{
+        top: -20%;
+        left: -20%;
+        transform: rotate(15deg) scale(0.2);
+    }
+    50% {
+        top: 70%;
+        left: 90%;
+        transform: rotate(180deg) scale(0.5) translate(-40%, -40%);
+    }
+    100% {
+        top: 50%;
+        left: 50%;
+        transform: rotate(360deg) scale(1) translate(-50%, -50%);
+    }
 }
 
 .modal_img{ 
@@ -60,6 +79,7 @@ button {
 
 .photo_description{
     padding-left: 12px;
+    text-align: center;
 }
 
 body {
@@ -80,10 +100,10 @@ body {
         background-position: 0 50%;;
     }
 }
-/* 
+
 html.no_scroll {
     overflow: hidden;
-} */
+}
 
 .hide{
     display: none;
