@@ -101,17 +101,19 @@ function openModal(e){
 
         function onEscape(e){
             if(e.code === "Escape"){
-                // document.querySelector(".backdrop").remove()
+                document.querySelector(".backdrop").remove()
                 body.removeEventListener("keydown", onEscape)
                 document.querySelector("html").classList.remove("no_scroll")
+                body.removeEventListener("keydown", onEscape)
             }
         }
 
         function onBackdrop(e){
-            console.log(11)
-            // if(e.target.nodeName === ){
-            //     document.querySelector(".backdrop").classList.add("hide")
-            //     body.removeEventListener("keydown", onEscape)
-            //     document.querySelector("html").classList.remove("no_scroll")
-            // }
+            console.log(e.target.nodeName)
+            if(e.target.nodeName === "backdrop"){
+                document.querySelector(".backdrop").remove()
+                body.removeEventListener("keydown", onEscape)
+                document.querySelector("html").classList.remove("no_scroll")
+                document.querySelector(".backdrop").removeEventListener("click", onBackdrop)
+            }
         }
